@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 obstacle.remove();
                 score++;
                 scoreDisplay.innerText = `Score: ${score}`;
-                obstacleSpeed += 0.01; // Increase difficulty
+                obstacleSpeed += 0.1; // Increase difficulty
             }
             
             if (isCollision(bird, obstacle)) {
