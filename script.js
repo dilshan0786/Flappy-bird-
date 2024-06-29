@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameOverScreen = document.getElementById('gameOver');
     const finalScore = document.getElementById('finalScore');
     const retryButton = document.getElementById('retryButton');
+
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const jumpSound = document.getElementById('jumpSound');
     
     let birdY;
     let gravity = 0.5;
@@ -35,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         playScreen.style.display = 'none';
         gameLoop();
         generateObstacles();
+        backgroundMusic.play(); // Play background music when the game starts
     }
 
     function clearObstacles() {
@@ -124,17 +128,21 @@ document.addEventListener('DOMContentLoaded', () => {
         finalScore.innerText = Math.floor(score / 2);
         gameOverScreen.style.display = 'block';
         cancelAnimationFrame(gameLoopId);
+        backgroundMusic.pause(); // Pause the background music when the game ends
+        backgroundMusic.currentTime = 0; // Reset the background music to the beginning
     }
     
     document.addEventListener('keydown', (e) => {
         if (e.code === 'Space' && !isGameOver) {
             birdVelocity = -10;
+            jumpSound.play(); // Play jump sound on space press
         }
     });
 
     document.addEventListener('touchstart', (e) => {
         if (!isGameOver) {
             birdVelocity = -10;
+            jumpSound.play(); // Play jump sound on touch
         }
     });
     
