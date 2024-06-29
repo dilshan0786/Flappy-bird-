@@ -1,0 +1,91 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#gameContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #48CBFB;
+    background: url('background.png')
+    no-repeat center center;
+    background-size: cover;
+}
+
+#bird {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url('bird.gif') no-repeat center center;
+    background-size: cover; /* Ensure the bird image covers the div */
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 5px #000); /* Apply filter */
+    transform: scaleX(-1);
+}
+
+
+#score {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: #fff;
+    z-index: 20;
+}
+
+#gameOver {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 20;
+}
+
+#playScreen{
+   display: none;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 20;
+}
+
+#playButton, #retryButton {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-top: 10px;
+    background-color: #00B805;
+    border-radius: 50px;
+    color: #fff;
+}
+
+#playScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+#gameOver{
+  position: absolute;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  color: #000;
+  
+}
+
+.obstacle {
+    background-size: cover;
+    position: absolute;
+    width: 50px;
+    background: url('bamboo.png') no-repeat center center; /* Ensure the bamboo image covers the div */
+}
