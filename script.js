@@ -58,11 +58,15 @@ document.addEventListener('DOMContentLoaded', () => {
             obstacle.style.left = `${parseFloat(obstacle.style.left) - obstacleSpeed}px`;
             if (parseFloat(obstacle.style.left) < -50) {
                 obstacle.remove();
-                score++;
-                scoreDisplay.innerText = `Score: ${score}`;
-                obstacleSpeed += 0.1; // Increase difficulty
             }
             
+            if (parseFloat(obstacle.style.left) + obstacle.clientWidth < bird.getBoundingClientRect().left && !obstacle.scored) {
+                score++;
+                obstacle.scored = true;
+                scoreDisplay.innerText = `Score: ${Math.floor(score / 2)}`;
+                obstacleSpeed += 0.1; // Increase difficulty
+            }
+
             if (isCollision(bird, obstacle)) {
                 endGame();
             }
@@ -83,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         obstacleTop.style.top = `0px`;  // Top side always at the top
         obstacleTop.style.height = `${obstacleHeight}px`;
         obstacleTop.style.width = '50px';
+        obstacleTop.style.background = 'url("bamboo.png") no-repeat center center';
         obstacleTop.style.backgroundSize = 'cover'; // Ensure the bamboo image covers the div
         
         obstacleBottom.classList.add('obstacle');
@@ -92,11 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
         obstacleBottom.style.width = '50px';
         obstacleBottom.style.background = 'url("bamboo.png") no-repeat center center';
         obstacleBottom.style.backgroundSize = 'cover'; // Ensure the bamboo image covers the div
+
+        obstacleTop.scored = false; // Initialize score flag
+        obstacleBottom.scored = false; // Initialize score flag
         
         gameContainer.appendChild(obstacleTop);
         gameContainer.appendChild(obstacleBottom);
         
-       setTimeout(generateObstacles, horizontalGap / obstacleSpeed * 10); // Generate new obstacles after a certain horizontal gap
+        setTimeout(generateObstacles, horizontalGap / obstacleSpeed * 10); // Generate new obstacles after a certain horizontal gap
     }
     
     function isCollision(bird, obstacle) {
@@ -113,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function endGame() {
         isGameOver = true;
-        finalScore.innerText = score;
+        finalScore.innerText = Math.floor(score / 2);
         gameOverScreen.style.display = 'block';
         cancelAnimationFrame(gameLoopId);
     }
@@ -135,7 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
         startGame();
     });
     
-    retryButton.addEventListener('click', startGame);
+    retryButton.addEventListener('click', () => {
+        location.reload(); // Refresh the page
+    });
     
     playScreen.style.display = 'flex';  // Show play button on page load
 });
